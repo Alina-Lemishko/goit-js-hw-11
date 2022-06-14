@@ -20,7 +20,6 @@ const loadMoreBtn = new LoadMoreBtn({
 // Listeners
 refs.searchForm.addEventListener('submit', onSearch);
 refs.searchForm.addEventListener('input', onInput);
-refs.gallery.addEventListener('click', onClick)
 
 refs.searchBtn.disabled = true;
 
