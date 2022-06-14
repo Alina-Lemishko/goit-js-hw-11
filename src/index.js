@@ -9,6 +9,7 @@ import { LoadMoreBtn } from "./js/services/loadMoreBtn";
 
 const searchPicsService = new SearchPicsService();
 const refs = getRefs();
+let gallery = null;
 
 const loadMoreBtn = new LoadMoreBtn({
   selector: '.load-more',
@@ -20,13 +21,17 @@ const loadMoreBtn = new LoadMoreBtn({
 // Listeners
 refs.searchForm.addEventListener('submit', onSearch);
 refs.searchForm.addEventListener('input', onInput);
+refs.gallery.addEventListener('click', onClick)
 
 refs.searchBtn.disabled = true;
 
+function onClick(e) {
+  e.preventDefault()
+}
 // Function on Input change
 function onInput(e) {
   let inputValue = e.target.value;
-
+  
   if (inputValue.length >= 1) {
     refs.searchBtn.disabled = false;
   }
@@ -36,9 +41,9 @@ function onInput(e) {
 function onSearch(e) {
   e.preventDefault()
   refs.gallery.innerHTML = '';
-
+  
   searchPicsService.query = e.currentTarget.elements.searchQuery.value.trim();
-
+  
   if (searchPicsService.query === '') {
     return Notiflix.Notify.warning('Please enter a keyword to search.');
   }
@@ -61,6 +66,7 @@ export async function loadPictures() {
   }
   
   renderMarkup(hits);
+  gallery = new SimpleLightbox('.photo-card a');
 }
 
 //Infinity scroll function

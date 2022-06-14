@@ -3,11 +3,9 @@ import getRefs from "./services/getRefs";
 const refs = getRefs()
 
 export function renderMarkup(array) {
-  // refs.gallery.innerHTML = '';
-console.log(array)
   const markup = array.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => /*html*/`
   <div class="photo-card">
-    <img src=${webformatURL} alt="${tags}" loading="lazy"/>
+    <a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
     <div class="info">
       <p class="info-item">
        <b>Likes</b> <span>${likes}</span> 

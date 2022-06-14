@@ -19,14 +19,12 @@ export default class SearchPicsService {
       orientation: 'horizontal',
       safesearch: true,
       per_page: this.perPage,
-      page: this.page
     })
   }
   
   async fetchPics() {
-
     try {
-      const response = await axios.get(`/?${this.params}&q=${this.searchQuery}`);
+      const response = await axios.get(`/?${this.params}&q=${this.searchQuery}&page=${this.page}`);
       const { hits, totalHits } = response.data;
       
       this.totalPage = Math.ceil(totalHits/this.perPage);
