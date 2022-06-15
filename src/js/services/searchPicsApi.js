@@ -30,8 +30,6 @@ export default class SearchPicsService {
       this.totalPage = Math.ceil(totalHits / this.perPage);
 
       if (hits.length === 0) {
-        refs.gallery.innerHTML = '';
-        refs.buttonLoadMore.disabled = true;
         Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.")
         return;
       }
@@ -40,10 +38,11 @@ export default class SearchPicsService {
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`)
       }
 
-      this.incrementPage();
+      // this.incrementPage();
 
       return {
         hits,
+        totalHits,
         hasNextPage: this.page > this.totalPage,
       }
 
@@ -66,5 +65,13 @@ export default class SearchPicsService {
 
   set query(newQuery) {
     this.searchQuery = newQuery;
+  }
+
+  get pageQuery() {
+    return this.page;
+  }
+
+  set pageQuery(newPageQuery) {
+    this.page = newPageQuery;
   }
 }

@@ -5,6 +5,7 @@ export default function getRefs() {
     buttonLoadMore: document.querySelector('.load-more'),
     photoСard: document.querySelector('.photo-card'),
     searchBtn: document.querySelector('.search_btn'),
-    loader: document.querySelector('.js-loader')
+    loader: document.querySelector('.js-loader'),
+    paginationContainer: document.querySelector('#tui-pagination-container')
   }
 }
