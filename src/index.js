@@ -9,6 +9,8 @@ import getRefs from "./js/services/getRefs";
 import { renderMarkup } from "./js/renderMarkup";
 // import { LoadMoreBtn } from "./js/services/loadMoreBtn";
 import { VisibleComponent } from './js/components/visibleComponent';
+import { callback } from './js/services/backToTopBtn';
+import { scrollToTop } from './js/services/backToTopBtn';
 
 const searchPicsService = new SearchPicsService();
 const refs = getRefs();
@@ -48,6 +50,7 @@ paginationWrapper.hide();
 refs.searchForm.addEventListener('submit', onSearch);
 refs.searchForm.addEventListener('input', onInput);
 pagination.on('afterMove', movePagination); // Listener for pagination
+refs.scrollToTopBtn.addEventListener("click", scrollToTop);
 
 refs.searchBtn.disabled = true;
 
@@ -74,7 +77,9 @@ function onSearch(e) {
 
   searchPicsService.resetPage();
   loadPictures();
-  
+
+  let observer = new IntersectionObserver(callback);
+  observer.observe(refs.target);
   // const infiniteScroll = new IntersectionObserver(handleIntersecting, options);
   // infiniteScroll.observe(refs.loader);
 }

@@ -6,6 +6,9 @@ export default function getRefs() {
     photoСard: document.querySelector('.photo-card'),
     searchBtn: document.querySelector('.search_btn'),
     loader: document.querySelector('.js-loader'),
-    paginationContainer: document.querySelector('#tui-pagination-container')
+    paginationContainer: document.querySelector('#tui-pagination-container'),
+    target: document.querySelector("footer"),
+    scrollToTopBtn: document.querySelector(".scrollToTopBtn"),
+    rootElement: document.documentElement,
   }
 }
