@@ -27,7 +27,7 @@ export default class SearchPicsService {
       const response = await axios.get(`/?${this.params}&q=${this.searchQuery}&page=${this.page}`);
       const { hits, totalHits } = response.data;
       
-      this.totalPage = Math.ceil(totalHits/this.perPage);
+      this.totalPage = Math.ceil(totalHits / this.perPage);
 
       if (hits.length === 0) {
         refs.gallery.innerHTML = '';

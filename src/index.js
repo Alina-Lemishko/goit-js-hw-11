@@ -9,25 +9,29 @@ import { LoadMoreBtn } from "./js/services/loadMoreBtn";
 
 const searchPicsService = new SearchPicsService();
 const refs = getRefs();
-let gallery = null;
+let gallery;
 
 const loadMoreBtn = new LoadMoreBtn({
   selector: '.load-more',
   className: 'is-hidden',
   isHide: true,
-  callback: () => loadPictures().catch(err => console.log(err))
+  callback: async () => {
+    try {
+      const loadingData =  loadPictures();
+      const refreshGallery = await gallery.destroy()
+      return;
+    } catch (error) {
+      console.log(error)
+    }
+  }
 })
 
 // Listeners
 refs.searchForm.addEventListener('submit', onSearch);
 refs.searchForm.addEventListener('input', onInput);
-refs.gallery.addEventListener('click', onClick)
 
 refs.searchBtn.disabled = true;
 
-function onClick(e) {
-  e.preventDefault()
-}
 // Function on Input change
 function onInput(e) {
   let inputValue = e.target.value;
@@ -49,6 +53,7 @@ function onSearch(e) {
   }
   searchPicsService.resetPage();
   loadPictures();
+  
   // const infiniteScroll = new IntersectionObserver(handleIntersecting, options);
   // infiniteScroll.observe(refs.loader);
 }
@@ -66,8 +71,9 @@ export async function loadPictures() {
   }
   
   renderMarkup(hits);
-  gallery = new SimpleLightbox('.photo-card a');
+  gallery = new SimpleLightbox('.photo-card a', {overlayOpacity: 0.8, captionPosition: 'bottom', captionType: 'attr', captionDelay: 250 });
 }
+
 
 //Infinity scroll function
 
